@@ -1,21 +1,21 @@
 black:
-	black src
+	black cron_service rest_api_service
 
 isort:
-	isort src
+	isort cron_service rest_api_service
 
 ruff-check:
-	ruff check src
+	ruff check cron_service rest_api_service
 
 ruff-format:
-	ruff check src --fix
+	ruff check cron_service rest_api_service --fix
 
 format: isort black ruff-format
 
 up:
 	docker compose up --remove-orphans --build \
-		backend \
-		postgresql
+		postgresql \
+		cron_service \
 
 db_downgrade:
 	alembic downgrade -1

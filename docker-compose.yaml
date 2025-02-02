@@ -1,22 +1,45 @@
-version: "3"
+version: '3.8'
+
+x-service-base: &base_service
+  build:
+    context: .
+  env_file: []
+  networks:
+    - backend
 
 services:
-  backend:
+  rest_api_service:
+    <<: *base_service
     build:
-      dockerfile: system/Dockerfile
-      context: .
+      dockerfile: rest_api_service/system/Dockerfile
     container_name: eth_analytics_rest_service
     ports:
       - "8000:8000"
     env_file:
-      - ./docker/backend/.env
+      - docker/rest_api_service/.env
+    depends_on:
+      - cron_service
+
+  cron_service:
+    <<: *base_service
+    build:
+      dockerfile: cron_service/system/Dockerfile
+    container_name: eth_analytics_cron_service
+    env_file:
+      - ./docker/cron_service/.env
     depends_on:
       - postgresql
 
   postgresql:
     image: postgres
-    container_name: tron_service_db
+    container_name: eth_analytics_db
     ports:
       - "5432:5432"
     env_file:
       - ./docker/postgresql/.env
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
