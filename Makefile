@@ -16,6 +16,7 @@ up:
 	docker compose up --remove-orphans --build \
 		postgresql \
 		cron_service \
+		rest_api_service
 
 db_downgrade:
 	alembic downgrade -1

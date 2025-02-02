@@ -35,9 +35,9 @@ jobs:
       - name: Run ${{ matrix.linter }}
         run: |
           if [ "${{ matrix.linter }}" == "black" ]; then
-            black --check src
+            black --check cron_service rest_api_service
           elif [ "${{ matrix.linter }}" == "isort" ]; then
-            isort --check src
+            isort --check cron_service rest_api_service
           elif [ "${{ matrix.linter }}" == "ruff" ]; then
-            ruff check src
+            ruff check cron_service rest_api_service
           fi
