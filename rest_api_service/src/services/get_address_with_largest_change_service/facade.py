@@ -33,21 +33,21 @@ class FacadeGetAddressWithLargestChangeService(
         blocks_to_check = (
             await self._get_last_100_blocks_service.get_last_100_block()
         )
-        self._logger.warning(
+        self._logger.debug(
             f"The first block has been received to check: № {blocks_to_check}."
         )
 
         transactions = await self._get_transactions_by_block_service.get_transactions_by_block(
             block_to_check=blocks_to_check
         )
-        self._logger.warning(
+        self._logger.debug(
             f"{len(transactions)} transactions have been received for further calculations."
         )
 
         balance_changes = self._calculate_balance_changes(
             transactions=transactions
         )
-        self._logger.warning(
+        self._logger.debug(
             "Calculations on changes in the balance in the blocks have been received."
         )
 

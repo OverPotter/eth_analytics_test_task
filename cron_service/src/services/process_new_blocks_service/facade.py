@@ -35,12 +35,12 @@ class FacadeProcessNewBlocksService(AbstractProcessNewBlocksService):
 
     async def process_new_blocks(self) -> None:
         latest_block = await self._get_latest_block_service.get_latest_block()
-        self._logger.warning(f"The last block was received: {latest_block}.")
+        self._logger.debug(f"The last block was received: {latest_block}.")
 
         start_block = (
             await self._get_last_processed_block_service.get_last_processed_block()
         )
-        self._logger.warning(
+        self._logger.debug(
             f"The last processed block  was received: {start_block}."
         )
 
@@ -48,7 +48,7 @@ class FacadeProcessNewBlocksService(AbstractProcessNewBlocksService):
             transactions = await self._get_block_transactions_service.get_block_transactions(
                 block_number
             )
-            self._logger.warning(
+            self._logger.debug(
                 f"Transactions have been received for block number: {block_number}."
             )
 
@@ -56,7 +56,7 @@ class FacadeProcessNewBlocksService(AbstractProcessNewBlocksService):
                 await self._save_transactions_service.save_transactions(
                     transactions
                 )
-                self._logger.warning(
+                self._logger.debug(
                     f"Saving transactions {len(transactions)} to the database."
                 )
 
