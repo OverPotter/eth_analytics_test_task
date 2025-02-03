@@ -1,3 +1,1 @@
-from cron_service.src.database.models.models import (  # noqa: F401
-    WalletQueryModel,
-)
+from src.database.models.models import TransactionsModel  # noqa: F401

@@ -1,9 +1,11 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from cron_service.src.database.repositories.abstract_manager import (
+from src.database.repositories.abstract_manager import (
     AbstractRepositoryManager,
 )
-from cron_service.src.db_manager import session_factory
+from src.database.repositories.transaction_repository import (
+    TransactionRepository,
+)
+from src.db_manager import session_factory
 
 
 class OrmRepositoryManager(AbstractRepositoryManager):
@@ -19,6 +21,9 @@ class OrmRepositoryManager(AbstractRepositoryManager):
 
     async def close(self) -> None:
         await self._session.close()
+
+    def get_transaction_repository(self) -> TransactionRepository:
+        return TransactionRepository(self._session)
 
 
 def orm_repository_manager_factory() -> OrmRepositoryManager:

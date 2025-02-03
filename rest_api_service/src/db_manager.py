@@ -3,9 +3,8 @@ from sqlalchemy.ext.asyncio import (
     AsyncSession,
     create_async_engine,
 )
-
-from cron_service.src._settings import settings_factory
-from cron_service.src.utils.singleton import singleton
+from src._settings import settings_factory
+from src.utils.singleton import singleton
 
 settings = settings_factory()
 
