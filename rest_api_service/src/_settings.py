@@ -1,14 +1,11 @@
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
-from cron_service.src.constants import ENV_PATH
+from src.constants import ENV_PATH
 
 load_dotenv()
 
 
 class Settings(BaseSettings):
-    ETH_APT_TOKEN: str
-
     DB_HOST: str
     DB_USER: str
     DB_PASS: str

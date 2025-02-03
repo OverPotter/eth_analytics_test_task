@@ -2,8 +2,7 @@ import sys
 from typing import TYPE_CHECKING
 
 from loguru import logger
-
-from cron_service.src._settings import settings_factory
+from src._settings import settings_factory
 
 if TYPE_CHECKING:
     from loguru import Logger

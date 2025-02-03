@@ -1,6 +1,5 @@
 from fastapi import FastAPI
-
-from cron_service.src.api.endpoints_v1 import router
+from src.api.endpoints_v1 import router
 
 app = FastAPI(
     title="EthAnalyticsService",
