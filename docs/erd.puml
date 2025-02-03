@@ -1,0 +1,11 @@
+@startuml
+entity "transactions" {
+    * id : int <<PK, AutoIncrement>>
+    --
+    block_number : BigInteger <<Not Null>>
+    tx_from : string <<Not Null>>
+    tx_to : string <<Nullable>>
+    value : Numeric(50) <<Not Null>>
+}
+
+@enduml
