@@ -32,18 +32,16 @@ async def main():
         facade: AbstractProcessNewBlocksService = FacadeProcessNewBlocksService(
             logger=logger,
             get_block_transactions_service=HTTPGetBlockTransactionsService(
-                settings=settings, logger=logger
+                settings=settings
             ),
             get_latest_block_service=HTTPGetLatestBlockService(
-                settings=settings, logger=logger
+                settings=settings
             ),
             save_transactions_service=RepositorySaveTransactionsService(
-                logger=logger,
                 transaction_repository=repository_manager.get_transaction_repository(),
             ),
             get_last_processed_block_service=RepositoryGetLastProcessedBlockService(
                 settings=settings,
-                logger=logger,
                 transaction_repository=repository_manager.get_transaction_repository(),
             ),
         )

@@ -33,33 +33,35 @@ class FacadeGetAddressWithLargestChangeService(
         blocks_to_check = (
             await self._get_last_100_blocks_service.get_last_100_block()
         )
-        self._logger.info(
+        self._logger.debug(
             f"The first block has been received to check: № {blocks_to_check}."
         )
 
         transactions = await self._get_transactions_by_block_service.get_transactions_by_block(
             block_to_check=blocks_to_check
         )
-        self._logger.info(
+        self._logger.debug(
             f"{len(transactions)} transactions have been received for further calculations."
         )
 
         balance_changes = self._calculate_balance_changes(
             transactions=transactions
         )
-        self._logger.info(
+        self._logger.debug(
             "Calculations on changes in the balance in the blocks have been received."
         )
 
         address_with_largest_change = max(
             balance_changes, key=lambda addr: abs(balance_changes[addr])
         )
+        balance_change_wei = balance_changes[address_with_largest_change]
         self._logger.info(
             f"The address with largest changes was received: {address_with_largest_change}."
         )
-        return BalanceChangeResponse(
+
+        return BalanceChangeResponse.from_wei(
             address=address_with_largest_change,
-            balance_change=balance_changes[address_with_largest_change],
+            balance_change=balance_change_wei,
         )
 
     @staticmethod

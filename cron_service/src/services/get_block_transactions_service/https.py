@@ -4,12 +4,10 @@ from src.schemas.response.transactions.base import TransactionBaseResponse
 from src.services.get_block_transactions_service.abc_service import (
     AbstractGetBlockTransactionsService,
 )
-from src.services.logging_service.logging_factory import Logger
 
 
 class HTTPGetBlockTransactionsService(AbstractGetBlockTransactionsService):
-    def __init__(self, logger: Logger, settings: Settings):
-        self._logger = logger
+    def __init__(self, settings: Settings):
         self._settings = settings
 
     async def get_block_transactions(
@@ -23,9 +21,6 @@ class HTTPGetBlockTransactionsService(AbstractGetBlockTransactionsService):
                 response.json().get("result", {}).get("transactions", [])
             )
 
-            self._logger.info(
-                f"Transactions have been received for block number: {block_number}."
-            )
             return [
                 TransactionBaseResponse(
                     block_number=block_number,
